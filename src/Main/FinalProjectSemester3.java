@@ -18,7 +18,7 @@ public class FinalProjectSemester3 extends Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("/view/Crash_Lab_GUI.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/view/TitleScreen.fxml"));
     Scene scene = new Scene(root);
 
     stage.setTitle("Crash-Lab");
