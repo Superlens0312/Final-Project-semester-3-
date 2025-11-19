@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pkgfinal.project.semester.pkg3;
+package Throw_away;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
@@ -11,6 +11,18 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
+       //code from main
+       //BorderPane root = new BorderPane();
+       // root.setPadding(new Insets(12));
+
+        // LEFT column: setup pane (two cars) + controls underneath
+        //CarSetUpWindow setupPane = new CarSetUpWindow();
+        //ControlsBox controls   = new ControlsBox();
+
+        //VBox left = new VBox(12, setupPane, controls);
+        //left.setPadding(new Insets(0, 8, 0, 0));
+        //root.setLeft(left);
 
 /**
  *

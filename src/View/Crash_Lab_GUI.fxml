@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox prefHeight="355.0" prefWidth="175.0" spacing="6.0" style="-fx-border-width: 2; -fx-border-color: Black;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="530.0" prefWidth="262.0" spacing="6.0" style="-fx-border-width: 2; -fx-border-color: Black;" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="28.0" prefWidth="203.0" text="Car Parameters">
                <font>
@@ -38,17 +37,17 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </Pane>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="216.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Start">
+            <Button fx:id="startButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="255.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Start">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: pink; -fx-border-color: Black;" text="Stop">
+            <Button fx:id="stopButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="250.0" style="-fx-background-color: pink; -fx-border-color: Black;" text="Stop">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="230.0" style="-fx-background-color: beige; -fx-border-color: Black;" text="Reset">
+            <Button fx:id="resetButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="255.0" style="-fx-background-color: beige; -fx-border-color: Black;" text="Reset">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
