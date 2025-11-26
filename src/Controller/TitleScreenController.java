@@ -40,7 +40,7 @@ public class TitleScreenController{
             Stage stage = (Stage) startButton.getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/view/Crash_Lab_GUI.fxml")
+                    getClass().getResource("/view/Instructions.fxml")
             );
             Scene slideshowScene = new Scene(loader.load());
 
