@@ -21,6 +21,24 @@ public class Car {
         this.angle = angle;
     }
     
+    //--- Methods to simplify physics ---
+    
+     /**
+     * Returns scalar momentum magnitude (kg·m/s).
+     * Direction is handled separately in PhysicsEngine.
+     */
+    public double getMomentum() {
+        return mass * speed;
+    }
+
+    /**
+     * Returns kinetic energy (Joules).
+     */
+    public double getKineticEnergy() {
+        return 0.5 * mass * speed * speed;
+    }
+    
+    //--- Getters and Setters ---
     public String getType() {
         return type;
     }
