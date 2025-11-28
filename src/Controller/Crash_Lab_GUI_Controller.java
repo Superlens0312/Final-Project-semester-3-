@@ -25,7 +25,25 @@ import javafx.util.Duration;
  */
 
 public class Crash_Lab_GUI_Controller implements Initializable {
+    
+    @FXML
+    private Label Car1WeightNum;
 
+    @FXML
+    private Label Car2WeightNum;
+
+    @FXML
+    private Label car1AngleNum;
+    
+    @FXML
+    private Label car1SpeedNum;
+    
+    @FXML
+    private Label car2AngleNum;
+
+    @FXML
+    private Label car2SpeedNum;
+    
     @FXML
     private ComboBox<String> car1Choice;
 
@@ -92,103 +110,168 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     @FXML
     private Label winnerName;
     
-     private final Map<String, Image> imageCache = new HashMap<>();
+    private final Map<String, Image> imageCache = new HashMap<>();
+     
+    private TranslateTransition car1Animation;
+    private TranslateTransition car2Animation;
+    private boolean isStoppedOnce = false; // to check first stop
+    private double car1StartX, car2StartX; // to remember positions
     
    
     public void initialize(URL url, ResourceBundle rb) {
         
-        car1Choice.getItems().addAll("Sedan", "Truck", "Motorcycle");
-        imageCache.put("Sedan", new Image("/images/Car_R.png"));
-        imageCache.put("Truck", new Image("/images/Truck_L.png"));
-        imageCache.put("Bike", new Image("/images/Bike_L.png"));
-        car2Choice.getItems().addAll("Sedan", "Truck", "Motorcycle");
-        car1Choice.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            String choice = car1Choice.getValue();
-            if(choice.equalsIgnoreCase("Sedan")){
-                car1Image.setImage(imageCache.get("Sedan"));
-                car1weight.setMin(1000);
-                car1weight.setMax(2000);
-                car1weight.setMajorTickUnit(250);
-            } else if(choice.equalsIgnoreCase("Truck")){
-                car1Image.setImage(imageCache.get("Truck"));
-                car1weight.setMin(2500);
-                car1weight.setMax(4000);
-                car1weight.setMajorTickUnit(375);
-            } else if(choice.equalsIgnoreCase("Motorcycle")){
-                car1Image.setImage(imageCache.get("Bike"));
-                car1weight.setMin(100);
-                car1weight.setMax(800);
-                car1weight.setMajorTickUnit(175);
-            }
-        });
-        car2Choice.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            String choice = car2Choice.getValue();
-            if(choice.equalsIgnoreCase("Sedan")){
-                car2Image.setImage(imageCache.get("Sedan"));
-                car2weight.setMin(1000);
-                car2weight.setMax(2000);
-                car2weight.setMajorTickUnit(250);
-            } else if(choice.equalsIgnoreCase("Truck")){
-                car2Image.setImage(imageCache.get("Truck"));
-                car2weight.setMin(2500);
-                car2weight.setMax(4000);
-                car2weight.setMajorTickUnit(375);
-            } else if(choice.equalsIgnoreCase("Motorcycle")){
-                car2Image.setImage(imageCache.get("Bike"));
-                car2weight.setMin(100);
-                car2weight.setMax(800);
-                car2weight.setMajorTickUnit(175);
-            }
-        });
+        explosionImage.setImage(new Image(getClass().getResource("/images/explosion2.gif").toExternalForm()));
+        explosionImage.setVisible(false);
+        
+        setupImageCache();
+        setupComboBoxes();
+        setupListeners();
+        setupAnimations();
+        setupSliderLabels();
     }
     
-//    private void setupVehicleConfig() {
-//    Car.put("Sedan", 
-//        new Car(new Image("/images/Car_R.png"), 1000, 2000, 250));
-//    Car.put("Truck", 
-//        new Car(new Image("/images/Truck_L.png"), 2500, 4000, 375));
-//    Car.put("Motorcycle", 
-//        new Car(new Image("/images/Bike_L.png"), 100, 800, 175));
-//}
-
-    @FXML
-    void carChosen(ActionEvent event) {
-        }
+    private void setupImageCache() {
+        imageCache.put("Sedan", new Image("/images/Car_R.png"));
+        imageCache.put("Truck", new Image("/images/Truck_L.png"));
+        imageCache.put("Motorcycle", new Image("/images/Bike_L.png"));
+    }
     
+    private void setupComboBoxes() {
+        car1Choice.getItems().addAll("Sedan", "Truck", "Motorcycle");
+        car2Choice.getItems().addAll("Sedan", "Truck", "Motorcycle");
+    }
+
+    private void setupListeners() {
+        car1Choice.valueProperty().addListener((obs, oldVal, newVal) -> updateCar1Config(newVal));
+        car2Choice.valueProperty().addListener((obs, oldVal, newVal) -> updateCar2Config(newVal));
+    }
+
+    private void setupAnimations() {    
+    car1StartX = car1Image.getTranslateX();
+    car2StartX = car2Image.getTranslateX();
+    
+    car1Animation = new TranslateTransition(Duration.seconds(2), car1Image);
+    car2Animation = new TranslateTransition(Duration.seconds(2), car2Image);
+    }
+    
+    private void setupSliderLabels() {
+        // Car 1
+        car1Speed.valueProperty().addListener((obs, oldVal, newVal) -> 
+            car1SpeedNum.setText(String.format("%.1f km/h",newVal.doubleValue())
+        ));
+        car1angle.valueProperty().addListener((obs, oldVal, newVal) -> 
+            car1AngleNum.setText(String.format("%.0f°", newVal.doubleValue()))
+        );
+        car1weight.valueProperty().addListener((obs, oldVal, newVal) -> 
+            Car1WeightNum.setText(String.format("%.0f kg", newVal.doubleValue()))
+        );
+
+        // Car 2
+        car2speed.valueProperty().addListener((obs, oldVal, newVal) -> 
+            car2SpeedNum.setText(String.format("%.1f km/h", newVal.doubleValue()))
+        );
+        car2angle.valueProperty().addListener((obs, oldVal, newVal) -> 
+            car2AngleNum.setText(String.format("%.0f °", newVal.doubleValue()))
+        );
+        car2weight.valueProperty().addListener((obs, oldVal, newVal) -> 
+            Car2WeightNum.setText(String.format("%.0f kg", newVal.doubleValue()))
+        );
+    }
+    
+    private void updateCar1Config(String type) {
+        if (type == null) return;
+
+        car1Image.setImage(imageCache.get(type));
+
+        switch (type) {
+            case "Sedan" -> setupWeightSlider(car1weight, 1000, 2000, 250);
+            case "Truck" -> setupWeightSlider(car1weight, 2500, 4000, 375);
+            case "Motorcycle" -> setupWeightSlider(car1weight, 100, 800, 175);
+        }
+    }
+
+    private void updateCar2Config(String type) {
+        if (type == null) return;
+
+        car2Image.setImage(imageCache.get(type));
+
+        switch (type) {
+            case "Sedan" -> setupWeightSlider(car2weight, 1000, 2000, 250);
+            case "Truck" -> setupWeightSlider(car2weight, 2500, 4000, 375);
+            case "Motorcycle" -> setupWeightSlider(car2weight, 100, 800, 175);
+        }
+    }
+
+    private void setupWeightSlider(Slider slider, double min, double max, double tick) {
+        slider.setMin(min);
+        slider.setMax(max);
+        slider.setMajorTickUnit(tick);
+    } 
 
     @FXML
     void resetBtn(ActionEvent event) {
-
+        car1Animation.stop();
+        car1Image.setTranslateX(car1StartX);
+        car2Image.setTranslateX(car2StartX);
+        winnerName.setText("");      // clear text
+        forceResult.setText("");
+        energyResult.setText("");
+        durationResult.setText("");
+        explosionImage.setVisible(false);
     }
 
     @FXML
     void startBtn(ActionEvent event) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(2), car1Image);
-        transition.setByX(125);
-        transition.play();
+        resetPositions();
+        
+        car1Animation.setByX(150);
+        car1Animation.play();
+
+        car2Animation.setByX(-150); // opposite direction
+        car2Animation.play();
+        
+        car1Animation.setOnFinished(e -> {
+        explosionImage.setVisible(true);
+        // Optional: place it in the middle between the cars
+        explosionImage.setTranslateX((car1Image.getTranslateX() + car2Image.getTranslateX()) / 2);
+    });
+
+        isStoppedOnce = false; // reset stop state
     }
 
     @FXML
     void stopBtn(ActionEvent event) {
+        if (!isStoppedOnce) {
+            // first stop: pause current animations
+            car1Animation.pause();
+            car2Animation.pause();
+            isStoppedOnce = true;
+        } else {
+            // second stop: move cars toward each other
+            TranslateTransition car1Crash = new TranslateTransition(Duration.seconds(1), car1Image);
+            TranslateTransition car2Crash = new TranslateTransition(Duration.seconds(1), car2Image);
+            
+            // when the last animation finishes, show explosion
+            car2Crash.setOnFinished(e -> explosionImage.setVisible(true));
 
+            car1Crash.setByX(125);  // move right
+            car2Crash.setByX(-125); // move left
+            car1Crash.play();
+            car2Crash.play();
+
+            isStoppedOnce = false; // reset
+        }
     }
+    
+    private void resetPositions() {
+    car1Animation.stop();
+    car2Animation.stop();
+    car1Image.setTranslateX(car1StartX);
+    car2Image.setTranslateX(car2StartX);
+    explosionImage.setVisible(false); // hide explosion
 }
     
-//    private static class VehicleConfig {
-//    Image image;
-//    int minWeight;
-//    int maxWeight;
-//    int tick;
-//    double defaultSpeed;
-//    double defaultAngle;
-//
-//    VehicleConfig(Image image, int minWeight, int maxWeight, int tick, double defaultSpeed, double defaultAngle) {
-//        this.image = image;
-//        this.minWeight = minWeight;
-//        this.maxWeight = maxWeight;
-//        this.tick = tick;
-//        this.defaultSpeed = defaultSpeed;
-//        this.defaultAngle = defaultAngle;
-//    }
-//}
-
+    @FXML
+    void carChosen(ActionEvent event){   
+    }
+}
