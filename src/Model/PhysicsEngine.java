@@ -69,6 +69,6 @@ public class PhysicsEngine {
         double car1Damage = baseDamage * (m2 / totalMass);
         double car2Damage = baseDamage * (m1 / totalMass);
 
-        return new CollisionManager(pBefore,pAfter,keBefore,keAfter,energyLossPercent,avgImpactForce,car1Damage,car2Damage);
+        return new CollisionManager(pBefore,pAfter,keBefore,keAfter,energyLossPercent,avgImpactForce,car1Damage,car2Damage,contactTime);
     }      
 }

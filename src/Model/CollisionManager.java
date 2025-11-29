@@ -18,6 +18,7 @@ public class CollisionManager {
 
     private  double energyLossPercent;
     private  double averageImpactForce; // Newtons (approx)
+     private double contactTime;   
 
     private  double car1DamagePercent;
     private  double car2DamagePercent;
@@ -27,7 +28,7 @@ public class CollisionManager {
     private double car2survivalPercent;
 
     //--- Constructor ---
-    public CollisionManager(double momentumBefore, double momentumAfter, double totalKeBefore, double totalKeAfter, double energyLossPercent, double averageImpactForce, double car1DamagePercent, double car2DamagePercent) {
+    public CollisionManager(double momentumBefore, double momentumAfter, double totalKeBefore, double totalKeAfter, double energyLossPercent, double averageImpactForce, double car1DamagePercent, double car2DamagePercent,double contactTime) {
         this.momentumBefore = momentumBefore;
         this.momentumAfter = momentumAfter;
         this.totalKeBefore = totalKeBefore;
@@ -36,6 +37,7 @@ public class CollisionManager {
         this.averageImpactForce = averageImpactForce;
         this.car1DamagePercent = car1DamagePercent;
         this.car2DamagePercent = car2DamagePercent;
+        this.contactTime =  contactTime;
         
     }
 
@@ -118,5 +120,9 @@ public class CollisionManager {
 
     public void setCar2survivalPercent(double car2survivalPercent) {
         this.car2survivalPercent = car2survivalPercent;
+    }
+    
+    public double getContactTime() {
+        return contactTime;
     }
 }

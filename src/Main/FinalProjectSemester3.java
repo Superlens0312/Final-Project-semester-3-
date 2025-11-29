@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Lenny Manset
+ * @author Lenny Manset, Mkrtich Sargsyan
  */
 public class FinalProjectSemester3 extends Application{
 
