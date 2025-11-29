@@ -26,6 +26,7 @@ public class Car {
      /**
      * Returns scalar momentum magnitude (kg·m/s).
      * Direction is handled separately in PhysicsEngine.
+     * @return the cars momentum
      */
     public double getMomentum() {
         return mass * speed;
@@ -33,6 +34,7 @@ public class Car {
 
     /**
      * Returns kinetic energy (Joules).
+     * @return the cars kinetic energy
      */
     public double getKineticEnergy() {
         return 0.5 * mass * speed * speed;

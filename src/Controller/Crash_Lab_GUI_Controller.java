@@ -1,13 +1,13 @@
 package Controller;
 
 import Model.Car;
+import Model.CollisionManager;
+import Model.PhysicsEngine;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -237,31 +237,38 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     });
 
         isStoppedOnce = false; // reset stop state
+        updatePhysicsResults();
     }
 
-    @FXML
-    void stopBtn(ActionEvent event) {
-        if (!isStoppedOnce) {
-            // first stop: pause current animations
-            car1Animation.pause();
-            car2Animation.pause();
-            isStoppedOnce = true;
-        } else {
-            // second stop: move cars toward each other
-            TranslateTransition car1Crash = new TranslateTransition(Duration.seconds(1), car1Image);
-            TranslateTransition car2Crash = new TranslateTransition(Duration.seconds(1), car2Image);
-            
-            // when the last animation finishes, show explosion
-            car2Crash.setOnFinished(e -> explosionImage.setVisible(true));
+ @FXML
+void stopBtn(ActionEvent event) {
+    if (!isStoppedOnce) {
+        // first stop: pause current animations
+        car1Animation.pause();
+        car2Animation.pause();
+        isStoppedOnce = true;
+    } else {
+        // second stop: move cars toward each other
+        TranslateTransition car1Crash = new TranslateTransition(Duration.seconds(1), car1Image);
+        TranslateTransition car2Crash = new TranslateTransition(Duration.seconds(1), car2Image);
 
-            car1Crash.setByX(125);  // move right
-            car2Crash.setByX(-125); // move left
-            car1Crash.play();
-            car2Crash.play();
+        car1Crash.setByX(125);  // move right
+        car2Crash.setByX(-125); // move left
 
-            isStoppedOnce = false; // reset
-        }
+        // when the last animation finishes, show explosion AND update labels
+        car2Crash.setOnFinished(e -> {
+            explosionImage.setVisible(true);
+            explosionImage.setTranslateX(
+                (car1Image.getTranslateX() + car2Image.getTranslateX()) / 2
+            );
+        });
+
+        car1Crash.play();
+        car2Crash.play();
+
+        isStoppedOnce = false; // reset
     }
+}
     
     private void resetPositions() {
     car1Animation.stop();
@@ -274,4 +281,88 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     @FXML
     void carChosen(ActionEvent event){   
     }
+    
+    // --- NEW: build Car objects from GUI values and update physics results ---
+
+    private Car buildCar1FromInputs() {
+        String type = car1Choice.getValue();
+        if (type == null) {
+            type = "Car 1";
+        }
+
+        double mass = car1weight.getValue();
+        double speedKmh = car1Speed.getValue();
+        double angleDeg = car1angle.getValue();
+
+        // convert km/h -> m/s
+        double speedMs = speedKmh / 3.6;
+
+        return new Car(type, mass, speedMs, angleDeg);
+    }
+
+    private Car buildCar2FromInputs() {
+        String type = car2Choice.getValue();
+        if (type == null) {
+            type = "Car 2";
+        }
+
+        double mass = car2weight.getValue();
+        double speedKmh = car2speed.getValue();
+        double angleDeg = car2angle.getValue();
+
+        double speedMs = speedKmh / 3.6;
+
+        return new Car(type, mass, speedMs, angleDeg);
+    }
+
+    /**
+     * Method to update all labels to display current physics(kinetic energy, impact force, etc) and display winner
+     */
+    private void updatePhysicsResults() {
+        Car c1 = buildCar1FromInputs();
+        Car c2 = buildCar2FromInputs();
+
+        CollisionManager result = PhysicsEngine.computeCollision(c1, c2);
+
+        // Momentum & energy summary (for your report)
+        energyResult.setText(String.format(
+                "KE: %.0f J → %.0f J (−%.1f%%)",
+                result.getTotalKeBefore(),
+                result.getTotalKeAfter(),
+                result.getEnergyLossPercent()
+        ));
+
+        forceResult.setText(String.format("≈ %.0f N", result.getAverageImpactForce()));
+        durationResult.setText(String.format("%.2f s", result.getContactTime()));
+
+        double d1 = result.getCar1DamagePercent();
+        double d2 = result.getCar2DamagePercent();
+
+        car1Damage.setText(String.format("%.1f %%", d1));
+        car2Damage.setText(String.format("%.1f %%", d2));
+
+        car1Survival.setText(String.format("%.1f %%", 100.0 - d1));
+        car2Survival.setText(String.format("%.1f %%", 100.0 - d2));
+
+        if (100.0 - d1 > 100.0 - d2) {
+            winnerName.setText("Car 1 (" + c1.getType() + ")");
+        } else if (100.0 - d2 > 100.0 - d1) {
+            winnerName.setText("Car 2 (" + c2.getType() + ")");
+        } else {
+            winnerName.setText("Tie");
+        }
+    }
+
+    private void resetResults() {
+        winnerName.setText("");
+        forceResult.setText("");
+        energyResult.setText("");
+        durationResult.setText("");
+
+        car1Damage.setText("");
+        car1Survival.setText("");
+        car2Damage.setText("");
+        car2Survival.setText("");
+    }
 }
+
