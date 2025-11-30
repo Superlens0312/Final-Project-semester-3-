@@ -6,17 +6,88 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="829.0" prefWidth="1194.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.IntrustionsController">
+<AnchorPane prefHeight="829.0" prefWidth="1194.0" style="-fx-background-color: #F5F7FB;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.IntrustionsController">
+
    <children>
-      <Label layoutX="316.0" layoutY="52.0" prefHeight="89.0" prefWidth="563.0" text="How To Use">
+
+      <!-- TITLE -->
+      <Label layoutX="444.0" layoutY="74.0" prefHeight="77.0" prefWidth="427.0" style="-fx-text-fill: #2C3E50;" text="How To Use Crash Lab" underline="true">
          <font>
-            <Font name="Lucida Fax Demibold Italic" size="90.0" />
+            <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="goTo" layoutX="523.0" layoutY="665.0" mnemonicParsing="false" onAction="#goToButton" prefHeight="67.0" prefWidth="192.0" text="Go to Simulation" />
-      <Label layoutX="112.0" layoutY="225.0" prefHeight="41.0" prefWidth="102.0" text="Car setup:" />
-      <Label layoutX="112.0" layoutY="344.0" prefHeight="41.0" prefWidth="102.0" text="Button Navigation:" />
-      <TextArea fx:id="buttonText" editable="false" layoutX="267.0" layoutY="331.0" prefHeight="67.0" prefWidth="661.0" text="The start button starts the simulation, while the stop pauses it. &#10;The stop button will become a resume button once clicked which will resume the simulation wherever it paused.&#10;The Reset Button will reset everything including the car set up and the simulation." />
-      <TextArea fx:id="CarSetupText" editable="false" layoutX="267.0" layoutY="212.0" prefHeight="67.0" prefWidth="661.0" text="The combo box will give you three vehicle options to pick from, each vehicle has diferent mass stats to pick from&#10;The sliders are used to set up speed mass and the angle for the chosen vehicle." />
+
+      <!-- GO TO SIM BUTTON -->
+      <Button fx:id="goTo" layoutX="501.0" layoutY="690.0" mnemonicParsing="false" onAction="#goToButton" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #4A90E2;                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 8;                      -fx-border-radius: 8;                      -fx-border-color: #336EB3;">
+         <text>Go to Simulation</text>
+      </Button>
+
+
+      <!-- SECTION TITLE 1 -->
+      <Label layoutX="117.0" layoutY="223.0" style="-fx-text-fill: #2C3E50;" text="Car Setup:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+
+      <!-- TEXT AREA: CAR SETUP -->
+      <TextArea fx:id="CarSetupText" editable="false" layoutX="270.0" layoutY="190.0" prefHeight="120.0" prefWidth="770.0" style="-fx-background-color: #FFFFFF;                        -fx-border-color: #D0D7E2;                        -fx-border-radius: 8;                        -fx-background-radius: 8;                        -fx-text-fill: #34495E;" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <text>
+            
+        1. Choose a car type for Car 1 and Car 2.
+        2. Adjust each car’s speed using the speed slider.
+        3. Set the weight of each car (in kg).
+        4. Adjust the collision angle if needed (0–15 degrees).
+          </text>
+      </TextArea>
+
+
+      <!-- SECTION TITLE 2 -->
+      <Label layoutX="91.0" layoutY="417.0" style="-fx-text-fill: #2C3E50;" text="Button Navigation:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+
+      <!-- TEXT AREA: BUTTON NAVIGATION -->
+      <TextArea fx:id="buttonText" editable="false" layoutX="270.0" layoutY="350.0" prefHeight="160.0" prefWidth="770.0" style="-fx-background-color: #FFFFFF;                        -fx-border-color: #D0D7E2;                        -fx-border-radius: 8;                        -fx-background-radius: 8;                        -fx-text-fill: #34495E;" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <text>          
+        Start – Begins the simulation. Both cars accelerate toward each other.
+        Stop – Pauses the simulation. Press again to resume.
+        Reset – Restores everything to the default positions.
+
+        After both cars collide, an explosion animation appears,
+        and physics results are displayed on the right panel
+     
+         </text>
+      </TextArea>
+
+
+      <!-- SECTION TITLE 3 -->
+      <Label layoutX="141.0" layoutY="573.0" style="-fx-text-fill: #2C3E50;" text="Tips:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+
+      <!-- TEXT AREA: TIPS -->
+      <TextArea editable="false" layoutX="270.0" layoutY="540.0" prefHeight="120.0" prefWidth="770.0" style="-fx-background-color: #FFFFFF;                        -fx-border-color: #D0D7E2;                        -fx-border-radius: 8;                        -fx-background-radius: 8;                        -fx-text-fill: #34495E;" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <text>           
+        • Higher speed increases kinetic energy dramatically.
+        • Heavier cars cause more damage but move less on impact.
+        • Small angles reduce the effective force of the collision.
+        • The simulation uses real formulas: F = ma, KE = ½mv².
+         </text>
+      </TextArea>
+
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
@@ -222,53 +223,77 @@ public class Crash_Lab_GUI_Controller implements Initializable {
 
     @FXML
     void startBtn(ActionEvent event) {
+        // Reset positions and previous results
         resetPositions();
-        
-        car1Animation.setByX(150);
-        car1Animation.play();
+        resetResults();
 
-        car2Animation.setByX(-150); // opposite direction
-        car2Animation.play();
-        
+        // Make sure previous animations are stopped
+        car1Animation.stop();
+        car2Animation.stop();
+
+        // --- Compute current gap between cars on screen ---
+        double car1Right = car1Image.getBoundsInParent().getMaxX();
+        double car2Left  = car2Image.getBoundsInParent().getMinX();
+        double gap = car2Left - car1Right;   // distance between front of car1 and front of car2
+
+        if (gap < 0) {
+            gap = 0; // already overlapping a bit, just in case
+        }
+
+        // --- Read speeds from sliders (use them as relative speeds) ---
+        double s1 = Math.max(car1Speed.getValue(), 1.0);  // avoid 0
+        double s2 = Math.max(car2speed.getValue(), 1.0);
+
+        double sum = s1 + s2;
+
+        // --- Determine how much each car should move ---
+        // We want them to meet: d1 + d2 = gap
+        // And keep the ratio d1 : d2 = s1 : s2 (faster car travels more)
+        double d1 = gap * (s1 / sum);  // car 1 distance (to the right)
+        double d2 = gap * (s2 / sum);  // car 2 distance (to the left)
+
+        // ---  Use a common duration for both animations ---
+        double durationSeconds = 2.0;  // we can tweak this later if needed (1.5, 2.5, etc.)
+
+        car1Animation.setDuration(Duration.seconds(durationSeconds));
+        car2Animation.setDuration(Duration.seconds(durationSeconds));
+
+        car1Animation.setByX(d1);      // move right
+        car2Animation.setByX(-d2);     // move left
+
+        explosionImage.setVisible(false);
+
+        // When they finish this move, they should be touching.
+        car1Animation.setOnFinished(null);
+        car2Animation.setOnFinished(null);
+       
         car1Animation.setOnFinished(e -> {
-        explosionImage.setVisible(true);
-        // Optional: place it in the middle between the cars
-        explosionImage.setTranslateX((car1Image.getTranslateX() + car2Image.getTranslateX()) / 2);
-    });
-
-        isStoppedOnce = false; // reset stop state
-        updatePhysicsResults();
+               explosionImage.setVisible(true);
+               explosionImage.setTranslateX(
+                       (car1Image.getTranslateX() + car2Image.getTranslateX()) / 2
+               );
+               updatePhysicsResults();
+            });
+ 
+        car1Animation.play();
+        car2Animation.play();
     }
 
- @FXML
-void stopBtn(ActionEvent event) {
-    if (!isStoppedOnce) {
-        // first stop: pause current animations
-        car1Animation.pause();
-        car2Animation.pause();
-        isStoppedOnce = true;
-    } else {
-        // second stop: move cars toward each other
-        TranslateTransition car1Crash = new TranslateTransition(Duration.seconds(1), car1Image);
-        TranslateTransition car2Crash = new TranslateTransition(Duration.seconds(1), car2Image);
 
-        car1Crash.setByX(125);  // move right
-        car2Crash.setByX(-125); // move left
 
-        // when the last animation finishes, show explosion AND update labels
-        car2Crash.setOnFinished(e -> {
-            explosionImage.setVisible(true);
-            explosionImage.setTranslateX(
-                (car1Image.getTranslateX() + car2Image.getTranslateX()) / 2
-            );
-        });
+    @FXML
+    void stopBtn(ActionEvent event) {
+            // Toggle pause/play on both animations
+            Animation.Status status = car1Animation.getStatus();
 
-        car1Crash.play();
-        car2Crash.play();
-
-        isStoppedOnce = false; // reset
-    }
-}
+            if (status == Animation.Status.RUNNING) {
+                car1Animation.pause();
+                car2Animation.pause();
+            } else if (status == Animation.Status.PAUSED) {
+                car1Animation.play();
+                car2Animation.play();
+            }
+        }
     
     private void resetPositions() {
     car1Animation.stop();
@@ -282,7 +307,7 @@ void stopBtn(ActionEvent event) {
     void carChosen(ActionEvent event){   
     }
     
-    // --- NEW: build Car objects from GUI values and update physics results ---
+    // --- build Car objects from GUI values and update physics results ---
 
     private Car buildCar1FromInputs() {
         String type = car1Choice.getValue();
@@ -352,6 +377,44 @@ void stopBtn(ActionEvent event) {
             winnerName.setText("Tie");
         }
     }
+    
+        // Convert km/h slider value + angle into an "effective" head-on speed in m/s
+    private double computeEffectiveSpeedMs(double speedKmh, double angleDeg) {
+        // km/h -> m/s
+        double speedMs = speedKmh / 3.6;
+
+        // only the component along the horizontal (head-on) direction
+        double angleRad = Math.toRadians(angleDeg);
+        double horizontalComponent = Math.cos(angleRad);
+        double headOnFactor = Math.abs(horizontalComponent);
+
+        double vEff = speedMs * headOnFactor;
+
+        // Avoid zero or extremely tiny speeds (would make duration explode)
+        return Math.max(vEff, 0.1);
+    }
+
+    // Compute how long the animation should take, in seconds
+    private double computeTravelDuration(double distancePixels,
+                                         double speedKmh,
+                                         double angleDeg) {
+
+        double vEff = computeEffectiveSpeedMs(speedKmh, angleDeg);
+
+        // Arbitrary visual scaling: how many pixels represent 1 meter
+        double pixelsPerMeter = 5.0;
+        double distanceMeters = distancePixels / pixelsPerMeter;
+
+        double t = distanceMeters / vEff; // seconds
+
+        // Clamp to something reasonable for animation
+        double minT = 0.3;  // very fast
+        double maxT = 5.0;  // very slow
+        if (t < minT) t = minT;
+        if (t > maxT) t = maxT;
+
+        return t;
+    }
 
     private void resetResults() {
         winnerName.setText("");
@@ -363,6 +426,7 @@ void stopBtn(ActionEvent event) {
         car1Survival.setText("");
         car2Damage.setText("");
         car2Survival.setText("");
+        
     }
 }
 
