@@ -4,19 +4,71 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="829.0" prefWidth="1194.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TitleScreenController">
+<AnchorPane prefHeight="829.0" prefWidth="1194.0"
+            style="-fx-background-color: #F5F7FB;"
+            xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.TitleScreenController">
 
     <children>
-        <VBox alignment="CENTER" layoutX="84.0" layoutY="88.0" prefHeight="654.0" prefWidth="1026.0" spacing="20" style="-fx-background-color: #DFF8EE; -fx-padding: 20; -fx-background-radius: 10;                      -fx-border-radius: 10; -fx-border-color: #66B2A3; -fx-border-width: 2;">
+        <VBox alignment="CENTER"
+              layoutX="84.0" layoutY="88.0"
+              prefHeight="654.0" prefWidth="1026.0"
+              spacing="20"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-padding: 40;
+                     -fx-background-radius: 12;
+                     -fx-border-radius: 12;
+                     -fx-border-color: #D0D7E2;
+                     -fx-border-width: 1;">
 
-            <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #004D40;" text="CRASH LAB" />
+            <Label text="CRASH LAB"
+                   style="-fx-text-fill: #2C3E50;">
+                <font>
+                    <Font name="System Bold" size="36.0" />
+                </font>
+            </Label>
 
-            <Label style="-fx-font-size: 14px; -fx-text-fill: #004D40;" text="Welcome! Press start to begin" />
+            <Label text="A 2D Car Collision Physics Simulator"
+                   style="-fx-text-fill: #4A5568;">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
 
-            <Button fx:id="startButton" onAction="#onStartClicked" prefHeight="54.0" prefWidth="171.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-background-color: #70C1B3;                            -fx-text-fill: white; -fx-background-radius: 8;" text="Start " />
+            <Label text="Welcome! Press Start to begin the simulation."
+                   style="-fx-text-fill: #718096;">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
 
-            <Button fx:id="quitButton" onAction="#onQuitClicked" prefHeight="33.0" prefWidth="142.0" style="-fx-font-size: 14px; -fx-background-color: #70C1B3; -fx-text-fill: white;                            -fx-background-radius: 8;" text="Quit" />
+            <Button fx:id="startButton"
+                    onAction="#onStartClicked"
+                    prefHeight="50.0" prefWidth="200.0"
+                    style="-fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-color: #4A90E2;
+                           -fx-text-fill: white;
+                           -fx-background-radius: 8;
+                           -fx-border-radius: 8;
+                           -fx-border-color: #336EB3;">
+                <text>Start</text>
+            </Button>
+
+            <Button fx:id="quitButton"
+                    onAction="#onQuitClicked"
+                    prefHeight="40.0" prefWidth="160.0"
+                    style="-fx-font-size: 13px;
+                           -fx-background-color: #FFFFFF;
+                           -fx-text-fill: #4A90E2;
+                           -fx-border-color: #4A90E2;
+                           -fx-border-radius: 8;
+                           -fx-background-radius: 8;">
+                <text>Quit</text>
+            </Button>
         </VBox>
     </children>
 </AnchorPane>
