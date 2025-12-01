@@ -132,9 +132,9 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     }
     
     private void setupImageCache() {
-        imageCache.put("Sedan", new Image("/images/Car_R.png"));
-        imageCache.put("Truck", new Image("/images/Truck_L.png"));
-        imageCache.put("Motorcycle", new Image("/images/Bike_L.png"));
+        imageCache.put("Sedan", new Image("/images/Car_R-removebg-preview.png"));
+        imageCache.put("Truck", new Image("/images/Truck_L-removebg-preview.png"));
+        imageCache.put("Motorcycle", new Image("/images/Bike_L-removebg-preview.png"));
     }
     
     private void setupComboBoxes() {
@@ -214,10 +214,20 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         car1Animation.stop();
         car1Image.setTranslateX(car1StartX);
         car2Image.setTranslateX(car2StartX);
+        car1Speed.setValue(0);
+        car2speed.setValue(0);
+        car1angle.setValue(0);
+        car2angle .setValue(0);
+        car1weight.setValue(0);
+        car2weight.setValue(0);
         winnerName.setText("");      // clear text
         forceResult.setText("");
         energyResult.setText("");
         durationResult.setText("");
+        car1Damage.setText("");
+        car1Survival.setText("");
+        car2Damage.setText("");
+        car2Survival.setText("");
         explosionImage.setVisible(false);
     }
 
@@ -278,21 +288,22 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         car1Animation.play();
         car2Animation.play();
     }
-
-
-
+    
     /**
-     * Button that pauses and resumes the animation 
+     * Button that pauses and resumes the animation(text changes depending on animation status)
      */
     @FXML
     void stopBtn(ActionEvent event) {
             // Toggle pause/play on both animations
+            stopButton.setText("STOP");
             Animation.Status status = car1Animation.getStatus();
 
             if (status == Animation.Status.RUNNING) {
+                stopButton.setText("Resume");
                 car1Animation.pause();
                 car2Animation.pause();
             } else if (status == Animation.Status.PAUSED) {
+               stopButton.setText("Stop");
                 car1Animation.play();
                 car2Animation.play();
             }
@@ -384,7 +395,7 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         }
     }
     
-        // Convert km/h slider value + angle into an "effective" head-on speed in m/s
+    // Convert km/h slider value + angle into an "effective" head-on speed in m/s
     private double computeEffectiveSpeedMs(double speedKmh, double angleDeg) {
         // km/h -> m/s
         double speedMs = speedKmh / 3.6;
@@ -401,9 +412,7 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     }
 
     // Compute how long the animation should take, in seconds
-    private double computeTravelDuration(double distancePixels,
-                                         double speedKmh,
-                                         double angleDeg) {
+    private double computeTravelDuration(double distancePixels,double speedKmh,double angleDeg) {
 
         double vEff = computeEffectiveSpeedMs(speedKmh, angleDeg);
 
@@ -423,7 +432,7 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     }
 
     /**
-     * Resets all labels i results tab
+     * Resets all labels in results tab
      */
     private void resetResults() {
         winnerName.setText("");
@@ -434,8 +443,7 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         car1Damage.setText("");
         car1Survival.setText("");
         car2Damage.setText("");
-        car2Survival.setText("");
-        
+        car2Survival.setText("");      
     }
 }
 

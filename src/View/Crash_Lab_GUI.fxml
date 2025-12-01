@@ -111,7 +111,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#startBtn" prefHeight="50.0" prefWidth="248.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Start">
+            <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#startBtn" prefHeight="50.0" prefWidth="290.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Start">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" top="120.0" />
                </VBox.margin>
@@ -119,7 +119,7 @@
                   <Font name="Lucida Fax Regular" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="stopButton" alignment="CENTER" mnemonicParsing="false" onAction="#stopBtn" prefHeight="50.0" prefWidth="248.0" style="-fx-background-color: pink; -fx-border-color: Black;" text="Stop">
+            <Button fx:id="stopButton" alignment="CENTER" mnemonicParsing="false" onAction="#stopBtn" prefHeight="50.0" prefWidth="290.0" style="-fx-background-color: pink; -fx-border-color: Black;" text="Stop">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
@@ -127,7 +127,7 @@
                   <Font name="Lucida Fax Regular" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="resetButton" alignment="CENTER" mnemonicParsing="false" onAction="#resetBtn" prefHeight="50.0" prefWidth="248.0" style="-fx-background-color: beige; -fx-border-color: Black;" text="Reset">
+            <Button fx:id="resetButton" alignment="CENTER" mnemonicParsing="false" onAction="#resetBtn" prefHeight="50.0" prefWidth="290.0" style="-fx-background-color: beige; -fx-border-color: Black;" text="Reset">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
@@ -187,12 +187,12 @@
                   <!-- Cars + explosion on top of line -->
                   <ImageView fx:id="car1Image" fitHeight="50.0" fitWidth="144.0" layoutX="46.0" layoutY="353.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/Car_R.png" />
+                        <Image url="@../Images/Car_R-removebg-preview.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="car2Image" fitHeight="49.0" fitWidth="138.0" layoutX="454.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/Car_R.png" />
+                        <Image url="@../Images/Car_R-removebg-preview.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="explosionImage" fitHeight="144.0" fitWidth="143.0" layoutX="255.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
