@@ -27,6 +27,9 @@ public class IntrustionsController{
     @FXML
     private TextArea buttonText;
 
+    /**
+     * button to go to crash lab simulation
+     */
     @FXML
     void goToButton(ActionEvent event) {
              try {

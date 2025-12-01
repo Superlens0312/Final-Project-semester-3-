@@ -281,6 +281,9 @@ public class Crash_Lab_GUI_Controller implements Initializable {
 
 
 
+    /**
+     * Button that pauses and resumes the animation 
+     */
     @FXML
     void stopBtn(ActionEvent event) {
             // Toggle pause/play on both animations
@@ -303,6 +306,9 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     explosionImage.setVisible(false); // hide explosion
 }
     
+    /**
+     * Create a car object from the car class in model, and using the users input
+     */
     @FXML
     void carChosen(ActionEvent event){   
     }
@@ -416,6 +422,9 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         return t;
     }
 
+    /**
+     * Resets all labels i results tab
+     */
     private void resetResults() {
         winnerName.setText("");
         forceResult.setText("");
