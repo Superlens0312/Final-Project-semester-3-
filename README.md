@@ -1,26 +1,26 @@
-Overview
+**Overview**
 
 Crash Lab is an interactive 2D car-collision simulation built using JavaFX, structured with MVC, and powered by a custom Newtonian Physics Engine.
 The application allows users to:
 
-Select different vehicles
+-> Select different vehicles
 
-Adjust speed, mass, and angle
+-> Adjust speed, mass, and angle
 
-Run a head-on collision simulation with animations
+-> Run a head-on collision simulation with animations
+_______________________________________________________________________________________________________________________________________________________
+--- View calculated physics results ---
 
-View calculated physics results:
+-> Momentum
 
-Momentum
+-> Kinetic energy
 
-Kinetic energy
+-> Impact force
 
-Impact force
+-> Energy loss %
 
-Energy loss %
-
-Damage % for each vehicle
-
+-> Damage % for each vehicle
+_______________________________________________________________________________________________________________________________________________________
 The project includes:
 
 Full JavaFX UI with multiple screens (Title Screen, Instructions, Simulation View)
