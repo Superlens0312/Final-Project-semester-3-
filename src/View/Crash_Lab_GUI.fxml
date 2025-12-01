@@ -45,13 +45,17 @@
                         <Font name="Lucida Fax Regular" size="14.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="car1Speed" layoutX="54.0" layoutY="85.0" showTickLabels="true" />
-                  <Slider fx:id="car1weight" layoutX="54.0" layoutY="125.0" majorTickUnit="1000.0" max="3000.0" showTickLabels="true" />
-                  <Slider fx:id="car1angle" layoutX="54.0" layoutY="165.0" majorTickUnit="5.0" max="15.0" showTickLabels="true" />
+                  <Slider fx:id="car1Speed" layoutX="54.0" layoutY="85.0" showTickLabels="true" 
+                  style="-fx-accent: #2d6cdf; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
+                  <Slider fx:id="car1weight" layoutX="54.0" layoutY="125.0" majorTickUnit="1000.0" max="3000.0" showTickLabels="true"
+                  style="-fx-accent: #2d6cdf; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
+                  <Slider fx:id="car1angle" layoutX="54.0" layoutY="165.0" majorTickUnit="5.0" max="15.0" showTickLabels="true" 
+                  style="-fx-accent: #2d6cdf; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
                   <Label layoutX="10.0" layoutY="85.0" prefHeight="17.0" prefWidth="35.0" text="Speed" />
                   <Label layoutX="8.0" layoutY="125.0" text="Weight" />
                   <Label layoutX="12.0" layoutY="165.0" text="Angle" />
-                  <ComboBox fx:id="car1Choice" layoutX="49.0" layoutY="43.0" onAction="#carChosen" prefWidth="150.0" promptText="Chose Car..." />
+                  <ComboBox fx:id="car1Choice" layoutX="49.0" layoutY="43.0" onAction="#carChosen" prefWidth="150.0" promptText="Chose Car..." 
+                  style="-fx-background-color: white; -fx-border-color: #2d6cdf; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 0 4 0 4; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
                   <Label fx:id="car1SpeedNum" layoutX="199.0" layoutY="85.0">
                      <font>
                         <Font name="Lucida Fax Regular" size="10.0" />
@@ -79,13 +83,17 @@
                         <Font name="Lucida Fax Regular" size="14.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="car2speed" layoutX="54.0" layoutY="84.0" showTickLabels="true" />
-                  <Slider fx:id="car2weight" layoutX="54.0" layoutY="124.0" majorTickUnit="1000.0" max="3000.0" showTickLabels="true" />
-                  <Slider fx:id="car2angle" layoutX="54.0" layoutY="164.0" majorTickUnit="5.0" max="15.0" showTickLabels="true" />
+                  <Slider fx:id="car2speed" layoutX="54.0" layoutY="84.0" showTickLabels="true"
+                  style="-fx-accent: #2d6cdf; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
+                  <Slider fx:id="car2weight" layoutX="54.0" layoutY="124.0" majorTickUnit="1000.0" max="3000.0" showTickLabels="true" 
+                  style="-fx-accent: #2d6cdf; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
+                  <Slider fx:id="car2angle" layoutX="54.0" layoutY="164.0" majorTickUnit="5.0" max="15.0" showTickLabels="true" 
+                  style="-fx-accent: #2d6cdf; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
                   <Label layoutX="8.0" layoutY="83.0" prefHeight="17.0" prefWidth="35.0" text="Speed" />
                   <Label layoutX="6.0" layoutY="124.0" text="Weight" />
                   <Label layoutX="10.0" layoutY="163.0" text="Angle" />
-                  <ComboBox fx:id="car2Choice" layoutX="49.0" layoutY="44.0" onAction="#carChosen" prefWidth="150.0" promptText="Chose Car..." />
+                  <ComboBox fx:id="car2Choice" layoutX="49.0" layoutY="44.0" onAction="#carChosen" prefWidth="150.0" promptText="Chose Car..." 
+                  style="-fx-background-color: white; -fx-border-color: #2d6cdf; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 0 4 0 4; -fx-focus-color: #90c2ff; -fx-faint-focus-color: transparent;"/>
                   <Label fx:id="car2SpeedNum" layoutX="199.0" layoutY="84.0">
                      <font>
                         <Font name="Lucida Fax Regular" size="10.0" />
