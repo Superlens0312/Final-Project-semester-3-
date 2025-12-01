@@ -17,9 +17,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="827.0" prefWidth="1166.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Crash_Lab_GUI_Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="827.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Crash_Lab_GUI_Controller">
    <left>
-      <VBox prefHeight="530.0" prefWidth="262.0" spacing="6.0" style="-fx-border-width: 2; -fx-border-color: Black;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="747.0" prefWidth="279.0" spacing="6.0" style="-fx-border-width: 2; -fx-border-color: Black;" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="28.0" prefWidth="262.0" text="Car Parameters">
                <font>
@@ -228,14 +228,14 @@
       </VBox>
    </center>
    <right>
-      <VBox prefHeight="570.0" prefWidth="242.0" spacing="6.0" style="-fx-border-color: Black; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="747.0" prefWidth="262.0" spacing="6.0" style="-fx-border-color: Black; -fx-border-width: 2;" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="28.0" prefWidth="262.0" text="Results">
                <font>
                   <Font name="Lucida Fax Regular" size="18.0" />
                </font>
             </Label>
-            <Pane prefHeight="174.0" prefWidth="228.0" style="-fx-border-color: grey;">
+            <Pane prefHeight="174.0" prefWidth="248.0" style="-fx-border-color: grey;">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

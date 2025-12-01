@@ -1,7 +1,7 @@
 package Model;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for CollisionManager – makes sure it correctly stores and
