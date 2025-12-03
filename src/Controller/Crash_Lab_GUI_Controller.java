@@ -16,6 +16,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -233,6 +234,12 @@ public class Crash_Lab_GUI_Controller implements Initializable {
 
     @FXML
     void startBtn(ActionEvent event) {
+        // Alert if the user doesnt choose a car model
+        if (car1Choice.getValue() == null || car2Choice.getValue() == null) {
+        new Alert(Alert.AlertType.WARNING, 
+                "Please choose both cars before starting.").show();
+        return;
+    }
         // Reset positions and previous results
         resetPositions();
         resetResults();
