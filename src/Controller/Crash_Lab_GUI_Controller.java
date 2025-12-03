@@ -16,6 +16,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -233,6 +234,14 @@ public class Crash_Lab_GUI_Controller implements Initializable {
 
     @FXML
     void startBtn(ActionEvent event) {
+        // Alert if the user doesnt choose a car model
+        if (car1Choice.getValue() == null || car2Choice.getValue() == null) {
+        new Alert(Alert.AlertType.WARNING, 
+                "Please choose both cars before starting.").show();
+        return;
+        }
+        
+            
         // Reset positions and previous results
         resetPositions();
         resetResults();
@@ -241,7 +250,7 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         car1Animation.stop();
         car2Animation.stop();
 
-        // --- Compute current gap between cars on screen ---
+        // Compute current gap between cars on screen
         double car1Right = car1Image.getBoundsInParent().getMaxX();
         double car2Left  = car2Image.getBoundsInParent().getMinX();
         double gap = car2Left - car1Right;   // distance between front of car1 and front of car2
@@ -249,20 +258,20 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         if (gap < 0) {
             gap = 0; // already overlapping a bit, just in case
         }
-
-        // --- Read speeds from sliders (use them as relative speeds) ---
+       
+        // Read speeds from sliders (use them as relative speeds)
         double s1 = Math.max(car1Speed.getValue(), 1.0);  // avoid 0
         double s2 = Math.max(car2speed.getValue(), 1.0);
 
         double sum = s1 + s2;
 
-        // --- Determine how much each car should move ---
+        // Determine how much each car should move
         // We want them to meet: d1 + d2 = gap
         // And keep the ratio d1 : d2 = s1 : s2 (faster car travels more)
         double d1 = gap * (s1 / sum);  // car 1 distance (to the right)
         double d2 = gap * (s2 / sum);  // car 2 distance (to the left)
 
-        // ---  Use a common duration for both animations ---
+        // Use a common duration for both animations
         double durationSeconds = 2.0;  // we can tweak this later if needed (1.5, 2.5, etc.)
 
         car1Animation.setDuration(Duration.seconds(durationSeconds));
@@ -271,6 +280,12 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         car1Animation.setByX(d1);      // move right
         car2Animation.setByX(-d2);     // move left
 
+        if (car1Speed.getValue() == 0.0){
+            car1Animation.setByX(0);
+        }
+        if (car2speed.getValue() == 0.0){
+            car2Animation.setByX(0);
+        }
         explosionImage.setVisible(false);
 
         // When they finish this move, they should be touching.
@@ -278,12 +293,18 @@ public class Crash_Lab_GUI_Controller implements Initializable {
         car2Animation.setOnFinished(null);
        
         car1Animation.setOnFinished(e -> {
-               explosionImage.setVisible(true);
-               explosionImage.setTranslateX(
-                       (car1Image.getTranslateX() + car2Image.getTranslateX()) / 2
-               );
-               updatePhysicsResults();
-            });
+        // No explosion if any car has speed 0
+        if (car1Speed.getValue() > 0 && car2speed.getValue() > 0) {
+            explosionImage.setVisible(true);
+            explosionImage.setTranslateX(
+                (car1Image.getTranslateX() + car2Image.getTranslateX()) / 2
+            );
+        } else {
+            explosionImage.setVisible(false);
+        }
+
+        updatePhysicsResults();
+    });
  
         car1Animation.play();
         car2Animation.play();
@@ -324,7 +345,7 @@ public class Crash_Lab_GUI_Controller implements Initializable {
     void carChosen(ActionEvent event){   
     }
     
-    // --- build Car objects from GUI values and update physics results ---
+    // build Car objects from GUI values and update physics results
 
     private Car buildCar1FromInputs() {
         String type = car1Choice.getValue();
