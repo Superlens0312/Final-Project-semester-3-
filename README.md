@@ -57,11 +57,11 @@ Ensure JavaFX libraries are linked in Project → Properties → Libraries → C
 Run Main.java
 
 The UI will load and you can:
-✔ Set speed
-✔ Set mass
-✔ Adjust angles
-✔ Start animation
-✔ View results (KE, force, damage, total loss)
+-> Set speed
+-> Set mass
+-> Adjust angles
+-> Start animation
+-> View results (KE, force, damage, total loss)
 ____________________________________________________________________________________________________________________________________________________________________
 Teamwork Summary
 
