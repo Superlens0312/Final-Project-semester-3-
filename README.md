@@ -1,6 +1,10 @@
-**Overview**
+Crash Lab — JavaFX Physics Collision Simulator
 
-Crash Lab is an interactive 2D car-collision simulation built using JavaFX, structured with MVC, and powered by a custom Newtonian Physics Engine.
+Vanier College — Program Development in a Graphical Environment (Fall 2025)
+Authors: Lenny Manset & Mkrtich Sargsyan
+
+
+Crash Lab is an interactive 2D car-collision simulation built using JavaFX, structured with MVC, and powered by a Newtonian Physics Engine.
 The application allows users to:
 
 -> Select different vehicles
@@ -32,3 +36,53 @@ Physics engine using Newtonian mechanics
 JUnit tests (Physics engine + collision calculations)
 
 Structured, easy-to-read code following best practices
+___________________________________________________________________________________________________________________________________________________________
+How to Run the Project
+1. Requirements
+
+Java 21
+
+JavaFX SDK installed
+
+NetBeans or IntelliJ
+
+2. Running the Application
+
+Clone the repository
+
+Open project in NetBeans
+
+Ensure JavaFX libraries are linked in Project → Properties → Libraries → Classpath
+
+Run Main.java
+
+The UI will load and you can:
+✔ Set speed
+✔ Set mass
+✔ Adjust angles
+✔ Start animation
+✔ View results (KE, force, damage, total loss)
+____________________________________________________________________________________________________________________________________________________________________
+Teamwork Summary
+
+Clear contributions of each team member.
+
+Lenny Manset
+
+Implemented PhysicsEngine calculations
+
+Wrote CollisionManager core code
+
+Mkrtich Sargsyan
+
+Implemented car animation logic
+
+Connected sliders, event handlers, animation flow
+
+Both
+
+Built JavaFX UI and FXML screens
+
+Added tests for Car, PhysicsEngine, CollisionManager
+
+
